@@ -1,0 +1,68 @@
+{
+  "name": "vue-testing-fundamentals",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learn the fundamentals of testing Vue components with Jest and Vue Testing Library",
+  "author": {
+    "name": "Brett Oberg",
+    "email": "brett.oberg8@gmail.com"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/vue": "^5.0.4",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "_id": "vue-testing-fundamentals@1.0.0",
+  "bugs": {
+    "url": "https://github.com/bjoberg/vue-testing-fundamentals/issues"
+  },
+  "homepage": "https://github.com/bjoberg/vue-testing-fundamentals#readme",
+  "keywords": [
+    "vue",
+    "vue-testing-library",
+    "unit",
+    "test"
+  ],
+  "license": "MIT",
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjoberg/vue-testing-fundamentals.git"
+  }
+}
