@@ -9,6 +9,7 @@
       :id="item.id"
       :value="item.value"
       :isComplete="item.isComplete"
+      @on-edit="handleEditItem"
       @on-remove="handleRemoveItem"
       @on-toggle-complete="handleToggleItemIsComplete"
     />
@@ -30,6 +31,13 @@ export default {
   methods: {
     handleAddNewItem(value) {
       this.pushNewTodo(value);
+    },
+    handleEditItem(id, value) {
+      const index = this.getIndexByTodoId(id);
+      this.items.splice(index, 1, {
+        ...this.items[index],
+        value: value,
+      });
     },
     handleRemoveItem(id) {
       this.removeTodoById(id);
