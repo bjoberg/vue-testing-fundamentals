@@ -1,6 +1,12 @@
 <template>
   <div class="todo-item_wrapper">
-    <input class="todo-item_input" type="checkbox" :checked="isComplete" />
+    <input
+      class="todo-item_input"
+      type="checkbox"
+      :value="id"
+      :checked="isComplete"
+      @change="handleOnToggleComplete"
+    />
     <p class="todo-item_content" :class="[isComplete ? 'todo-item_content--complete': '']">{{value}}</p>
     <button
       class="todo-item_btn--edit secondary_btn"
@@ -34,6 +40,9 @@ export default {
     },
     handleOnClickRemove() {
       this.$emit("on-remove", this.id);
+    },
+    handleOnToggleComplete() {
+      this.$emit("on-toggle-complete", this.id);
     },
   },
 };

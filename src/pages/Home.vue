@@ -10,6 +10,7 @@
       :value="item.value"
       :isComplete="item.isComplete"
       @on-remove="handleRemoveItem"
+      @on-toggle-complete="handleToggleItemIsComplete"
     />
   </div>
 </template>
@@ -33,6 +34,13 @@ export default {
     handleRemoveItem(id) {
       this.removeTodoById(id);
     },
+    handleToggleItemIsComplete(id) {
+      const index = this.getIndexByTodoId(id);
+      this.items.splice(index, 1, {
+        ...this.items[index],
+        isComplete: !this.items[index].isComplete,
+      });
+    },
     pushNewTodo(value) {
       const id = Date.now();
       const isComplete = false;
@@ -40,7 +48,7 @@ export default {
     },
     removeTodoById(id) {
       const index = this.getIndexByTodoId(id);
-      if (index >= 0) this.items.splice(index, 1);
+      this.items.splice(index, 1);
     },
     getIndexByTodoId(id) {
       return this.items.findIndex((item) => item.id === id);
