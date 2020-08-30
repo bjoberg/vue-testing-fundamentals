@@ -3,7 +3,6 @@
     <input
       class="todo-item_input"
       type="checkbox"
-      :value="id"
       :checked="isComplete"
       @change="handleOnToggleComplete"
       :disabled="isEditing"
@@ -43,11 +42,14 @@ export default {
       type: Number,
       required: true,
     },
+    isEditing: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
-      isEditing: false,
-      itemValue: this.value,
+      itemValue: this.value, //  TODO: Can't do this.... breaking something
     };
   },
   computed: {
@@ -57,8 +59,8 @@ export default {
   },
   methods: {
     handleOnClickEdit() {
-      if (this.isEditing) this.$emit("on-edit", this.id, this.itemValue);
-      this.isEditing = !this.isEditing;
+      if (this.isEditing) this.$emit("on-save", this.id, this.itemValue);
+      else this.$emit("on-toggle-edit", this.id);
     },
     handleOnClickRemove() {
       this.$emit("on-remove", this.id);

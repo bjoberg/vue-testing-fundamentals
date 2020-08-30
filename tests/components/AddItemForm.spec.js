@@ -21,23 +21,20 @@ describe('<AddItemForm />', () => {
     const listeners = {
       'on-add': jest.fn()
     }
-    let input
-    let button
+    let utils
 
     beforeEach(() => {
-      const { getByRole, getByPlaceholderText } = render(AddItemForm, { listeners })
-      input = getByPlaceholderText('Add new item')
-      button = getByRole('button', { name: 'Add Item' })
-      userEvent.type(input, inputValue)
+      utils = render(AddItemForm, { listeners })
+      userEvent.type(utils.getByPlaceholderText('Add new item'), inputValue)
     })
 
     test('submit button should not be disabled', () => {
-      expect(button).not.toBeDisabled();
+      expect(utils.getByRole('button', { name: 'Add Item' })).not.toBeDisabled();
     })
 
     describe('when user clicks submit button', () => {
       beforeEach(() => {
-        userEvent.click(button)
+        userEvent.click(utils.getByRole('button', { name: 'Add Item' }))
       })
 
       test('should call "submit" handler', () => {
@@ -49,11 +46,11 @@ describe('<AddItemForm />', () => {
       })
 
       test('should clear input value', () => {
-        expect(input.value).toEqual("")
+        expect(utils.getByPlaceholderText('Add new item')).toHaveValue("")
       })
 
       test('should set submit button to disabled', () => {
-        expect(button).toBeDisabled()
+        expect(utils.getByRole('button', { name: 'Add Item' })).toBeDisabled()
       })
     })
   })
@@ -62,20 +59,19 @@ describe('<AddItemForm />', () => {
     const listeners = {
       'on-add': jest.fn()
     }
-    let button
+    let utils
 
     beforeEach(() => {
-      const { getByRole } = render(AddItemForm, { listeners })
-      button = getByRole('button', { name: 'Add Item' })
+      utils = render(AddItemForm, { listeners })
     })
 
     test('submit button should be disabled', () => {
-      expect(button).toBeDisabled();
+      expect(utils.getByRole('button', { name: 'Add Item' })).toBeDisabled();
     })
 
     describe('when user clicks submit button', () => {
       beforeEach(() => {
-        userEvent.click(button)
+        userEvent.click(utils.getByRole('button', { name: 'Add Item' }))
       })
 
       test('should not call "submit" handler', () => {
