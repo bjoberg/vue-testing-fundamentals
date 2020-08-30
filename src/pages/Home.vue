@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Here is what you need to do today!</h1>
+    <h1>Things I Need To Do</h1>
     <AddItemForm @on-add="handleAddNewItem" />
     <div v-for="(item, index) in items" :key="index">{{item.value}}</div>
   </div>

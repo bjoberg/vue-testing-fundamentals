@@ -1,8 +1,7 @@
 <template>
   <div class="add-item-form_wrapper">
-    <span>New item:</span>
-    <input type="text" aria-label="add-item-form_input" v-model="inputValue" />
-    <button @click="addItem">Add</button>
+    <input type="text" class="add-item-form_input" placeholder="Add new item" v-model="inputValue" />
+    <button class="add-item-form_btn" @click="addItem">Add Item</button>
   </div>
 </template>
 
@@ -17,15 +16,26 @@ export default {
   methods: {
     addItem() {
       this.$emit("on-add", this.inputValue);
+      this.inputValue = "";
     },
   },
 };
 </script>
 
 <style>
-.add-item-from_wrapper {
+.add-item-form_wrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
+  justify-content: center;
+  max-width: 50rem;
+  margin: 2rem auto 2rem auto;
+}
+.add-item-form_input {
+  flex-grow: 1;
+  margin: 0rem 0.5rem 0rem 0rem;
+}
+.add-item-form_btn {
+  margin: 0rem 0rem 0rem 0.5rem;
 }
 </style>

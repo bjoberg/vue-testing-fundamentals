@@ -4,22 +4,15 @@ import userEvent from '@testing-library/user-event'
 import AddItemForm from '../../src/components/AddItemForm.vue';
 
 describe('<AddItemForm />', () => {
-  const componentIdentifier = "add-item-form"
-
-  test('should render input label', () => {
-    const { getByText } = render(AddItemForm)
-    expect(getByText('New item:')).toBeInTheDocument()
-  })
 
   test('should render input element', () => {
-    const { getByRole } = render(AddItemForm)
-    const name = `${componentIdentifier}_input`
-    expect(getByRole('textbox', { name })).toBeInTheDocument()
+    const { getByPlaceholderText } = render(AddItemForm)
+    expect(getByPlaceholderText('Add new item')).toBeInTheDocument()
   })
 
   test('should render submit button', () => {
     const { getByRole } = render(AddItemForm)
-    const name = "Add"
+    const name = "Add Item"
     expect(getByRole('button', { name })).toBeInTheDocument()
   })
 
@@ -33,9 +26,9 @@ describe('<AddItemForm />', () => {
     let button
 
     beforeEach(() => {
-      const { getByRole } = render(AddItemForm, { listeners })
-      input = getByRole('textbox', { name: `${componentIdentifier}_input` })
-      button = getByRole('button', { name: 'Add' })
+      const { getByRole, getByPlaceholderText } = render(AddItemForm, { listeners })
+      input = getByPlaceholderText('Add new item')
+      button = getByRole('button', { name: 'Add Item' })
       userEvent.type(input, inputValue)
     })
 
@@ -50,6 +43,10 @@ describe('<AddItemForm />', () => {
 
       test('should call "submit" handler with correct params', () => {
         expect(submitHandlerMock.mock.calls[0][0]).toEqual(inputValue)
+      })
+
+      test('should clear input value', () => {
+        expect(input.value).toEqual("")
       })
     })
   })
