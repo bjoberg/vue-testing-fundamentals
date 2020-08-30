@@ -23,13 +23,17 @@ export default {
       type: Boolean,
       required: true,
     },
+    id: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
     handleOnClickEdit() {
       this.$emit("on-edit");
     },
     handleOnClickRemove() {
-      this.$emit("on-remove");
+      this.$emit("on-remove", this.id);
     },
   },
 };

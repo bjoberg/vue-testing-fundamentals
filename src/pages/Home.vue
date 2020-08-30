@@ -6,8 +6,10 @@
       class="home-page_todo-item"
       v-for="(item, index) in items"
       :key="index"
+      :id="item.id"
       :value="item.value"
       :isComplete="item.isComplete"
+      @on-remove="handleRemoveItem"
     />
   </div>
 </template>
@@ -24,18 +26,24 @@ export default {
       items: [],
     };
   },
-  watch: {
-    items() {
-      console.log(this.items);
-    },
-  },
   methods: {
     handleAddNewItem(value) {
-      this.items.push({
-        id: Math.random(),
-        value,
-        isComplete: false,
-      });
+      this.pushNewTodo(value);
+    },
+    handleRemoveItem(id) {
+      this.removeTodoById(id);
+    },
+    pushNewTodo(value) {
+      const id = Date.now();
+      const isComplete = false;
+      this.items.push({ id, value, isComplete });
+    },
+    removeTodoById(id) {
+      const index = this.getIndexByTodoId(id);
+      if (index >= 0) this.items.splice(index, 1);
+    },
+    getIndexByTodoId(id) {
+      return this.items.findIndex((item) => item.id === id);
     },
   },
 };
