@@ -1,7 +1,11 @@
 <template>
   <div class="add-item-form_wrapper">
     <input type="text" class="add-item-form_input" placeholder="Add new item" v-model="inputValue" />
-    <button class="add-item-form_btn" @click="addItem">Add Item</button>
+    <button
+      class="add-item-form_btn primary_btn"
+      @click="addItem"
+      :disabled="submitBtnDisabled"
+    >Add Item</button>
   </div>
 </template>
 
@@ -12,6 +16,11 @@ export default {
     return {
       inputValue: "",
     };
+  },
+  computed: {
+    submitBtnDisabled() {
+      return this.inputValue === "";
+    },
   },
   methods: {
     addItem() {
@@ -28,8 +37,8 @@ export default {
   flex-direction: row;
   width: 100%;
   justify-content: center;
-  max-width: 50rem;
-  margin: 2rem auto 2rem auto;
+  align-items: center;
+  margin: 2rem 0rem 2rem 0rem;
 }
 .add-item-form_input {
   flex-grow: 1;
