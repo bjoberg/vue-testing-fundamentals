@@ -5,24 +5,9 @@
       type="checkbox"
       :checked="isComplete"
       @change="handleOnToggleComplete"
-      :disabled="isEditing"
     />
-    <p
-      v-if="!isEditing"
-      class="todo-item_content"
-      :class="[isComplete ? 'todo-item_content--complete': '']"
-    >{{value}}</p>
-    <input v-else class="todo-item_content" type="text" v-model="itemValue" />
-    <button
-      class="todo-item_btn--edit secondary_btn"
-      @click="handleOnClickEdit"
-      :disabled="isComplete"
-    >{{editButtonText}}</button>
-    <button
-      class="todo-item_btn--remove error_btn"
-      @click="handleOnClickRemove"
-      :disabled="isEditing"
-    >Remove</button>
+    <p class="todo-item_content" :class="[isComplete ? 'todo-item_content--complete': '']">{{value}}</p>
+    <button class="todo-item_btn--remove error_btn" @click="handleOnClickRemove">Remove</button>
   </div>
 </template>
 
@@ -30,6 +15,10 @@
 export default {
   name: "TodoItem",
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     value: {
       type: String,
       required: true,
@@ -38,30 +27,8 @@ export default {
       type: Boolean,
       required: true,
     },
-    id: {
-      type: Number,
-      required: true,
-    },
-    isEditing: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      itemValue: this.value, //  TODO: Can't do this.... breaking something
-    };
-  },
-  computed: {
-    editButtonText() {
-      return this.isEditing ? "Save" : "Edit";
-    },
   },
   methods: {
-    handleOnClickEdit() {
-      if (this.isEditing) this.$emit("on-save", this.id, this.itemValue);
-      else this.$emit("on-toggle-edit", this.id);
-    },
     handleOnClickRemove() {
       this.$emit("on-remove", this.id);
     },

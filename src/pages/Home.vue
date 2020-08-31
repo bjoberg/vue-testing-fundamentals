@@ -9,9 +9,6 @@
       :id="item.id"
       :value="item.value"
       :isComplete="item.isComplete"
-      :isEditing="item.isEditing"
-      @on-save="handleSaveItem"
-      @on-toggle-edit="handleToggleEditItem"
       @on-remove="handleRemoveItem"
       @on-toggle-complete="handleToggleItemIsComplete"
     />
@@ -30,21 +27,14 @@ export default {
       items: [],
     };
   },
+  watch: {
+    items() {
+      console.log(this.items);
+    },
+  },
   methods: {
     handleAddNewItem(value) {
       this.pushNewTodo(value);
-    },
-    handleSaveItem(id, value) {
-      const index = this.getIndexByTodoId(id);
-      this.items.splice(index, 1, {
-        ...this.items[index],
-        value: value,
-      });
-      this.toggleIsEditingTodoByIndex(index);
-    },
-    handleToggleEditItem(id) {
-      const index = this.getIndexByTodoId(id);
-      this.toggleIsEditingTodoByIndex(index);
     },
     handleRemoveItem(id) {
       this.removeTodoById(id);
@@ -65,8 +55,7 @@ export default {
     pushNewTodo(value) {
       const id = Date.now();
       const isComplete = false;
-      const isEditing = false;
-      this.items.push({ id, value, isComplete, isEditing });
+      this.items.push({ id, value, isComplete });
     },
     removeTodoById(id) {
       const index = this.getIndexByTodoId(id);
