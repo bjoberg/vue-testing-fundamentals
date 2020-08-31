@@ -1,6 +1,13 @@
 <template>
   <div class="home-page_wrapper">
-    <h1>Things I Need To Do</h1>
+    <PageHeader>
+      <template v-slot:title>Things I Need To Do</template>
+      <template v-slot:subtitle>
+        <span>
+          <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
+        </span>
+      </template>
+    </PageHeader>
     <AddItemForm @on-add="handleAddNewItem" />
     <TodoItem
       class="home-page_todo-item"
@@ -16,12 +23,13 @@
 </template>
 
 <script>
+import PageHeader from "../components/PageHeader.vue";
 import AddItemForm from "../components/AddItemForm.vue";
 import TodoItem from "../components/TodoItem.vue";
 
 export default {
   name: "HomePage",
-  components: { AddItemForm, TodoItem },
+  components: { PageHeader, AddItemForm, TodoItem },
   data() {
     return {
       items: [],
