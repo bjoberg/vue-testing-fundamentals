@@ -22,6 +22,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   margin: 2rem;
 }
+h5 {
+  color: #8a8a8a;
+}
 button {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
