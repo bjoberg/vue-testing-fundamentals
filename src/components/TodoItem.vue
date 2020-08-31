@@ -6,7 +6,7 @@
       :checked="isComplete"
       @change="handleOnToggleComplete"
     />
-    <p class="todo-item_content" :class="[isComplete ? 'todo-item_content--complete': '']">{{value}}</p>
+    <p class="todo-item_content" :class="{'todo-item_content--complete': isComplete}">{{value}}</p>
     <button class="todo-item_btn--remove error_btn" @click="handleOnClickRemove">Remove</button>
   </div>
 </template>
