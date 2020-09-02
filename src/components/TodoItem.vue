@@ -7,13 +7,15 @@
       @change="handleOnToggleComplete"
     />
     <p class="todo-item_content" :class="{'todo-item_content--complete': isComplete}">{{value}}</p>
-    <button class="todo-item_btn--remove error_btn" @click="handleOnClickRemove">Remove</button>
+    <Button class="todo-item_btn--remove" variant="error" @on-click="handleOnClickRemove">Remove</Button>
   </div>
 </template>
 
 <script>
+import Button from "./Button.vue";
 export default {
   name: "TodoItem",
+  components: { Button },
   props: {
     id: {
       type: Number,
@@ -39,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .todo-item_wrapper {
   display: flex;
   flex-direction: row;

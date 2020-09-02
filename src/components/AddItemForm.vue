@@ -1,17 +1,20 @@
 <template>
   <div class="add-item-form_wrapper">
     <input type="text" class="add-item-form_input" placeholder="Add new item" v-model="inputValue" />
-    <button
-      class="add-item-form_btn primary_btn"
-      @click="addItem"
-      :disabled="submitBtnDisabled"
-    >Add Item</button>
+    <Button
+      class="add-item-form_btn"
+      variant="primary"
+      :isDisabled="submitBtnDisabled"
+      @on-click="addItem"
+    >Add Item</Button>
   </div>
 </template>
 
 <script>
+import Button from "./Button.vue";
 export default {
   name: "AddItemForm",
+  components: { Button },
   data() {
     return {
       inputValue: "",
@@ -31,7 +34,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .add-item-form_wrapper {
   display: flex;
   flex-direction: row;
