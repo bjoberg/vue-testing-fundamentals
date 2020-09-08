@@ -1,10 +1,17 @@
 <template>
-  <div class="wrapper">Adding new items...</div>
+  <div v-if="open" class="wrapper">Adding new items...</div>
 </template>
 
 <script>
 export default {
   name: "Snackbar",
+  props: {
+    open: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
 };
 </script>
 

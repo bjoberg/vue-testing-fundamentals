@@ -7,7 +7,7 @@
           <span>
             <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
           </span>
-          <Button variant="secondary">Add Random</Button>
+          <Button variant="secondary" @on-click="handleAddRandom">Add Random</Button>
         </template>
       </PageHeader>
       <AddItemForm @on-add="handleAddNewItem" />
@@ -22,7 +22,7 @@
         @on-toggle-complete="handleToggleItemIsComplete"
       />
     </div>
-    <Snackbar />
+    <Snackbar :open="isLoading" />
   </div>
 </template>
 
@@ -32,6 +32,7 @@ import Button from "../components/Button.vue";
 import PageHeader from "../components/PageHeader.vue";
 import TodoItem from "../components/TodoItem.vue";
 import Snackbar from "../components/Snackbar.vue";
+import { getRandomTodos, getNewTodo } from "../services/TodoService";
 
 export default {
   name: "HomePage",
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       items: [],
+      isLoading: false,
     };
   },
   watch: {
@@ -47,8 +49,15 @@ export default {
     },
   },
   methods: {
+    handleAddRandom() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.items = [...this.items, ...getRandomTodos(5)];
+      }, 2000);
+    },
     handleAddNewItem(value) {
-      this.pushNewTodo(value);
+      this.items.push(getNewTodo(value));
     },
     handleRemoveItem(id) {
       this.removeTodoById(id);
@@ -65,11 +74,6 @@ export default {
         ...this.items[index],
         isEditing: !this.items[index].isEditing,
       });
-    },
-    pushNewTodo(value) {
-      const id = Date.now();
-      const isComplete = false;
-      this.items.push({ id, value, isComplete });
     },
     removeTodoById(id) {
       const index = this.getIndexByTodoId(id);

@@ -18,7 +18,7 @@ export default {
   components: { Button },
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true,
     },
     value: {
