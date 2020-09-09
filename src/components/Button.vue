@@ -1,11 +1,9 @@
 <template>
-  <div data-test-id="loading-button" class="button_root">
-    <button class="button" :class="buttonVariant" :disabled="isDisabled" @click="handleOnClick">
-      <span class="button_text">
-        <slot />
-      </span>
-    </button>
-  </div>
+  <button class="button" :class="buttonVariant" :disabled="isDisabled" @click="handleOnClick">
+    <span class="button_text">
+      <slot>Button</slot>
+    </span>
+  </button>
 </template>
 
 <script>

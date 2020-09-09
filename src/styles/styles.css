@@ -49,10 +49,6 @@ input {
 }
 
 /************************ Button ************************/
-.button_root {
-  display: flex;
-  align-items: center;
-}
 button {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
