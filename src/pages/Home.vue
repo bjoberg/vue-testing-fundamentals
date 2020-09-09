@@ -28,7 +28,7 @@
         @on-toggle-complete="handleToggleItemIsComplete"
       />
     </div>
-    <Snackbar :open="isLoading" />
+    <Snackbar :open="isLoading">Adding todos...</Snackbar>
   </div>
 </template>
 
