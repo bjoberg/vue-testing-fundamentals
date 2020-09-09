@@ -40,27 +40,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.todo-item_wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.todo-item_content {
-  flex-grow: 1;
-  margin: 0rem 0.5rem 0rem 0.5rem;
-}
-.todo-item_content--complete {
-  text-decoration: line-through;
-}
-.todo-item_input {
-  margin: 0rem 0.5rem 0rem 0.5rem;
-}
-.todo-item_btn--edit {
-  margin: 0rem 0.5rem 0rem 0.5rem;
-}
-.todo-item_btn--remove {
-  margin: 0rem 0rem 0rem 0.5rem;
-}
-</style>

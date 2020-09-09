@@ -4,10 +4,16 @@
       <PageHeader>
         <template v-slot:title>Things I Need To Do</template>
         <template v-slot:subtitle>
-          <span>
-            <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
-          </span>
-          <Button variant="secondary" @on-click="handleAddRandom">Add Random</Button>
+          <div class="home-page_subtitle">
+            <span>
+              <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
+            </span>
+            <Button
+              variant="secondary"
+              @on-click="handleAddRandom"
+              :isDisabled="isLoading"
+            >Add Random</Button>
+          </div>
         </template>
       </PageHeader>
       <AddItemForm @on-add="handleAddNewItem" />
@@ -85,17 +91,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/* .container {
-  position: relative;
-  background-color: gray;
-} */
-.home-page_wrapper {
-  max-width: 50rem;
-  margin: 2rem auto 2rem auto;
-}
-.home-page_todo-item {
-  margin: 1rem 0rem 1rem 0rem;
-}
-</style>

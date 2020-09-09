@@ -1,7 +1,9 @@
 <template>
-  <div data-test-id="loading-button" class="root">
+  <div data-test-id="loading-button" class="button_root">
     <button class="button" :class="buttonVariant" :disabled="isDisabled" @click="handleOnClick">
-      <slot />
+      <span class="button_text">
+        <slot />
+      </span>
     </button>
   </div>
 </template>
@@ -40,53 +42,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.root {
-  display: flex;
-  align-items: center;
-}
-button {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  border-radius: 4px;
-  display: inline-block;
-  cursor: pointer;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  text-decoration: none;
-  outline: none;
-  border: 1px solid black;
-  font-weight: bold;
-}
-button.primary_btn {
-  color: #44c767;
-  border: 1px solid #44c767;
-}
-button.primary_btn:hover:not([disabled="disabled"]) {
-  color: white;
-  background-color: #44c767;
-}
-button.secondary_btn {
-  color: #448cc7;
-  border: 1px solid #448cc7;
-}
-button.secondary_btn:hover:not([disabled="disabled"]) {
-  color: white;
-  background-color: #448cc7;
-}
-button.error_btn {
-  color: #c74844;
-  border: 1px solid #c74844;
-}
-button.error_btn:hover:not([disabled="disabled"]) {
-  color: white;
-  background-color: #c74844;
-}
-button:disabled {
-  color: #b9b9b9;
-  border: 1px solid #b9b9b9;
-  cursor: not-allowed;
-}
-</style>

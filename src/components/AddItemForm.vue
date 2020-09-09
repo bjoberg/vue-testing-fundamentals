@@ -33,21 +33,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.add-item-form_wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0rem 2rem 0rem;
-}
-.add-item-form_input {
-  flex-grow: 1;
-  margin: 0rem 0.5rem 0rem 0rem;
-}
-.add-item-form_btn {
-  margin: 0rem 0rem 0rem 0.5rem;
-}
-</style>
