@@ -1,5 +1,7 @@
 <template>
-  <div v-if="open" class="snackbar_wrapper">Adding new items...</div>
+  <div v-if="open" class="snackbar_wrapper">
+    <slot>Loading...</slot>
+  </div>
 </template>
 
 <script>

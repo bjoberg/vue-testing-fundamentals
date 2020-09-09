@@ -1,5 +1,5 @@
 import { render } from '@testing-library/vue';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 import Button from '../../src/components/Button.vue';
 
