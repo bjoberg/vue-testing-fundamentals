@@ -8,7 +8,9 @@ const todos = [
   "Call your Mom",
   "Feed the dog",
   "Get groceries",
-  "Read the news"
+  "Read the news",
+  "Finish unit tests",
+  "Do homework"
 ];
 
 /**
