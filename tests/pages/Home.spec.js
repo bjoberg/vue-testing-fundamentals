@@ -1,9 +1,32 @@
-import { render } from '@testing-library/vue';
+import { render, fireEvent } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event'
 
 import mockTodoItems from '../__data__/TodoItems';
 import Home from '../../src/pages/Home.vue';
 import * as TodoService from "../../src/services/TodoService";
+
+/**
+ * when multiple todo items are added
+ *    When todo item "checkbox" is clicked
+ *        should render x todo items
+ *        should render correct todo items
+ *        should render todo items with correct completion state
+ */
+
+/**
+ * Add a new todo item to the list.
+ * 
+ * @param {Object} testUtils testing library utils from rendered output
+ * @param {String} value Text value of the new todo item
+ */
+const addTodoItem = async (testUtils, value) => {
+  await userEvent.type(testUtils.getByPlaceholderText('Add new item'), value)
+  await userEvent.click(testUtils.getByRole('button', { name: 'Add Item' }))
+}
+
+const removeTodoItem = async (removeBtn) => {
+  await userEvent.click(removeBtn)
+}
 
 describe('<Home />', () => {
   const numRandomItemsToAdd = 3;
@@ -102,6 +125,59 @@ describe('<Home />', () => {
         mockTodoItems.forEach(item => {
           expect(queryByText(item.value)).not.toBeNull()
           expect(queryByText(item.value)).toBeInTheDocument()
+        })
+      })
+    })
+  })
+
+  describe('when multiple todo items are added', () => {
+    let utils
+    const newTodos = ['New item 1', 'New item 2', 'New item 3']
+
+    beforeEach(async () => {
+      utils = render(Home);
+
+      await addTodoItem(utils, newTodos[0]);
+      await addTodoItem(utils, newTodos[1]);
+      await addTodoItem(utils, newTodos[2]);
+    })
+
+    test(`should render ${newTodos.length} todo items`, () => {
+      expect(utils.queryAllByTestId('todo-item').length).toEqual(newTodos.length)
+    })
+
+    test('should render correct todo items', () => {
+      const { queryByText } = utils
+      newTodos.forEach(item => {
+        expect(queryByText(item)).not.toBeNull()
+        expect(queryByText(item)).toBeInTheDocument()
+      })
+    })
+
+    describe('when todo item "remove" button is clicked', () => {
+      const indexToRemove = 1;
+
+      beforeEach(async () => {
+        const todoItemRemoveBtns = utils.queryAllByRole('button', { name: 'Remove' })
+        await removeTodoItem(todoItemRemoveBtns[indexToRemove])
+      })
+
+      test(`should render ${newTodos.length - 1} todo items`, () => {
+        const { queryAllByTestId } = utils
+        const expectedNumTodos = newTodos.length - 1
+        expect(queryAllByTestId('todo-item').length).toEqual(expectedNumTodos)
+      })
+
+      test('should render correct todo items', () => {
+        const { queryByText } = utils
+        newTodos.forEach((item, index) => {
+          if (index !== indexToRemove) {
+            expect(queryByText(item)).not.toBeNull()
+            expect(queryByText(item)).toBeInTheDocument()
+          } else {
+            expect(queryByText(item)).toBeNull()
+            expect(queryByText(item)).not.toBeInTheDocument()
+          }
         })
       })
     })
