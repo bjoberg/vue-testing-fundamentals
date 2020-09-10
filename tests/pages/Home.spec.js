@@ -1,29 +1,16 @@
 import { render } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event'
 
-import MockTodoItems from '../__data__/TodoItems';
+import mockTodoItems from '../__data__/TodoItems';
 import Home from '../../src/pages/Home.vue';
 import * as TodoService from "../../src/services/TodoService";
-/** 
- * when 'Add x Random' button is clicked
- *    should render 'Add x Random' button as disabled
- *    should render snackbar
- *    when action is complete
- *      should not render snackbar
- *      should render 'Add x Random' button as enabled
- *      should render 'x' number of todo items
- */
-
-
-//  TODO Mock the service request
 
 describe('<Home />', () => {
-  let getRandomTodosMock;
   const numRandomItemsToAdd = 3;
 
   beforeEach(() => {
     jest.useFakeTimers();
-    getRandomTodosMock = jest.spyOn(TodoService, 'getRandomTodos').mockResolvedValue([])
+    jest.spyOn(TodoService, 'getRandomTodos').mockResolvedValue([])
   })
 
   test('should render title', () => {
@@ -65,9 +52,9 @@ describe('<Home />', () => {
     let utils
 
     beforeEach(() => {
-      getRandomTodosMock = jest.spyOn(TodoService, 'getRandomTodos').mockImplementation(async () => {
+      jest.spyOn(TodoService, 'getRandomTodos').mockImplementation(async () => {
         await new Promise((cb) => setTimeout(cb, 2000))
-        return MockTodoItems
+        return mockTodoItems
       })
       utils = render(Home);
       userEvent.click(utils.getByRole('button', { name: `Add ${numRandomItemsToAdd} Random` }))
@@ -88,14 +75,34 @@ describe('<Home />', () => {
       expect(queryByText('Adding todos...')).not.toBeNull();
     })
 
-    describe('when request finishes', () => {
+    describe('when todo items are received', () => {
+
       beforeEach(() => {
         jest.runAllTimers();
       })
-      test('fail', () => {
-        const { debug } = utils
-        debug()
-        expect(false).toEqual(true)
+
+      test(`should render "Add ${numRandomItemsToAdd} Random" button as enabled`, () => {
+        const { getByRole } = utils
+        expect(getByRole('button', { name: `Add ${numRandomItemsToAdd} Random` })).not.toBeDisabled();
+      })
+
+      test('should not render snackbar', () => {
+        const { queryByText, queryByTestId } = utils
+        expect(queryByTestId('snackbar')).toBeNull();
+        expect(queryByText('Adding todos...')).toBeNull();
+      })
+
+      test(`should render ${mockTodoItems.length} todo items`, () => {
+        const { queryAllByTestId } = utils
+        expect(queryAllByTestId('todo-item').length).toEqual(mockTodoItems.length)
+      })
+
+      test('should render correct todo items', () => {
+        const { queryByText } = utils
+        mockTodoItems.forEach(item => {
+          expect(queryByText(item.value)).not.toBeNull()
+          expect(queryByText(item.value)).toBeInTheDocument()
+        })
       })
     })
   })
