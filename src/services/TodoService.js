@@ -31,12 +31,13 @@ const getNewTodo = (value = "") => {
  * @param {Number} numTodos number of random todos to return
  * @returns {[{id: String, value: String, isComplete: Boolean}]} list of todo items
  */
-const getRandomTodos = (numTodos = 5) => {
+const getRandomTodos = async (numTodos = 5) => {
   const items = [];
   for (let i = 0; i < numTodos; i++) {
     const value = todos[Math.floor(Math.random() * todos.length)];
     items.push(getNewTodo(value))
   }
+  await new Promise((cb) => setTimeout(cb, 2000))
   return items
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="open" class="snackbar_wrapper">
+  <div data-testid="snackbar" v-if="open" class="snackbar_wrapper">
     <slot>Loading...</slot>
   </div>
 </template>

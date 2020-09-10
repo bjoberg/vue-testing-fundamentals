@@ -4,18 +4,16 @@
       <PageHeader>
         <template v-slot:title>Things I Need To Do</template>
         <template v-slot:subtitle>
-          <div class="home-page_subtitle">
-            <span>
-              <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
-            </span>
-            <Button
-              variant="secondary"
-              @on-click="handleAddRandom"
-              :isDisabled="isLoading"
-            >Add Random</Button>
-          </div>
+          <span>
+            <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
+          </span>
         </template>
       </PageHeader>
+      <Button
+        variant="secondary"
+        @on-click="handleAddRandom"
+        :isDisabled="pageIsLoading"
+      >Add {{numRandomItemsToAdd}} Random</Button>
       <AddItemForm @on-add="handleAddNewItem" />
       <TodoItem
         class="home-page_todo-item"
@@ -28,7 +26,7 @@
         @on-toggle-complete="handleToggleItemIsComplete"
       />
     </div>
-    <Snackbar :open="isLoading">Adding todos...</Snackbar>
+    <Snackbar :open="pageIsLoading">Adding todos...</Snackbar>
   </div>
 </template>
 
@@ -46,21 +44,16 @@ export default {
   data() {
     return {
       items: [],
-      isLoading: false,
+      pageIsLoading: false,
+      numRandomItemsToAdd: 3,
     };
   },
-  watch: {
-    items() {
-      console.log(this.items);
-    },
-  },
   methods: {
-    handleAddRandom() {
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-        this.items = [...this.items, ...getRandomTodos(5)];
-      }, 2000);
+    async handleAddRandom() {
+      this.pageIsLoading = true;
+      const randTodos = await getRandomTodos(this.numRandomItemsToAdd);
+      this.items = [...this.items, ...randTodos];
+      this.pageIsLoading = false;
     },
     handleAddNewItem(value) {
       this.items.push(getNewTodo(value));

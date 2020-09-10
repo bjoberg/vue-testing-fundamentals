@@ -1,5 +1,5 @@
 <template>
-  <div class="add-item-form_wrapper">
+  <div data-testid="add-item-form" class="add-item-form_wrapper">
     <input type="text" class="add-item-form_input" placeholder="Add new item" v-model="inputValue" />
     <Button
       class="add-item-form_btn"

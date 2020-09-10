@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item_wrapper">
+  <div data-testid="todo-item" class="todo-item_wrapper">
     <input
       class="todo-item_input"
       type="checkbox"
