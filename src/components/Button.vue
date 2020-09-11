@@ -21,16 +21,9 @@ export default {
   },
   computed: {
     buttonVariant() {
-      switch (this.variant) {
-        case "primary":
-          return "primary_btn";
-        case "secondary":
-          return "secondary_btn";
-        case "error":
-          return "error_btn";
-        default:
-          return "primary_btn";
-      }
+      if (this.variant === "secondary") return "secondary_btn";
+      if (this.variant === "error") return "error_btn";
+      return "primary_btn";
     },
   },
   methods: {
