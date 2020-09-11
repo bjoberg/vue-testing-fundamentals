@@ -4,20 +4,24 @@ import Snackbar from '../../src/components/Snackbar.vue';
 
 describe('<Snackbar />', () => {
   describe('when not open', () => {
-    const propsData = { open: false };
-
-    test('should render snackbar', () => {
-      const { queryByText } = render(Snackbar, { propsData });
-      expect(queryByText('Loading...')).toBeNull()
+    test('should not render snackbar', () => {
+      const { queryByTestId } = render(Snackbar);
+      expect(queryByTestId('snackbar')).not.toBeInTheDocument()
     })
   })
 
   describe('when open', () => {
     const propsData = { open: true };
+    const defaultText = "Loading..."
 
     test('should render snackbar', () => {
+      const { queryByTestId } = render(Snackbar, { propsData });
+      expect(queryByTestId('snackbar')).toBeInTheDocument()
+    })
+
+    test('should render default snackbar content', () => {
       const { queryByText } = render(Snackbar, { propsData });
-      expect(queryByText('Loading...')).toBeInTheDocument()
+      expect(queryByText(defaultText)).toBeInTheDocument()
     })
 
     describe('when slot is provided', () => {
@@ -25,7 +29,7 @@ describe('<Snackbar />', () => {
 
       test('should render provided slot content', () => {
         const { queryByText } = render(Snackbar, { propsData, slots });
-        expect(queryByText('Loading...')).not.toBeInTheDocument()
+        expect(queryByText(defaultText)).not.toBeInTheDocument()
         expect(queryByText(slots.default)).toBeInTheDocument()
       })
     })
