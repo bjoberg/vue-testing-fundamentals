@@ -1,48 +1,62 @@
 <template>
-  <div class="home-page_wrapper">
-    <PageHeader>
-      <template v-slot:title>Things I Need To Do</template>
-      <template v-slot:subtitle>
-        <span>
-          <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
-        </span>
-      </template>
-    </PageHeader>
-    <AddItemForm @on-add="handleAddNewItem" />
-    <TodoItem
-      class="home-page_todo-item"
-      v-for="(item, index) in items"
-      :key="index"
-      :id="item.id"
-      :value="item.value"
-      :isComplete="item.isComplete"
-      @on-remove="handleRemoveItem"
-      @on-toggle-complete="handleToggleItemIsComplete"
-    />
+  <div>
+    <div class="home-page_wrapper">
+      <PageHeader>
+        <template v-slot:title>Things I Need To Do</template>
+        <template v-slot:subtitle>
+          <span>
+            <i class="fas fa-info-circle" /> Add items to your list using the textbox below.
+          </span>
+        </template>
+      </PageHeader>
+      <Button
+        variant="secondary"
+        @on-click="handleAddRandom"
+        :isDisabled="pageIsLoading"
+      >Add {{numRandomItemsToAdd}} Random</Button>
+      <AddItemForm @on-add="handleAddNewItem" />
+      <TodoItem
+        class="home-page_todo-item"
+        v-for="(item, index) in items"
+        :key="index"
+        :id="item.id"
+        :value="item.value"
+        :isComplete="item.isComplete"
+        @on-remove="handleRemoveItem"
+        @on-toggle-complete="handleToggleItemIsComplete"
+      />
+    </div>
+    <Snackbar :open="pageIsLoading">Adding todos...</Snackbar>
   </div>
 </template>
 
 <script>
-import PageHeader from "../components/PageHeader.vue";
 import AddItemForm from "../components/AddItemForm.vue";
+import Button from "../components/Button.vue";
+import PageHeader from "../components/PageHeader.vue";
 import TodoItem from "../components/TodoItem.vue";
+import Snackbar from "../components/Snackbar.vue";
+import { getRandomTodos, getNewTodo } from "../services/TodoService";
 
 export default {
   name: "HomePage",
-  components: { PageHeader, AddItemForm, TodoItem },
+  components: { AddItemForm, Button, PageHeader, TodoItem, Snackbar },
   data() {
     return {
       items: [],
+      pageIsLoading: false,
+      numRandomItemsToAdd: 3,
     };
   },
-  watch: {
-    items() {
-      console.log(this.items);
-    },
-  },
   methods: {
+    async handleAddRandom() {
+      this.pageIsLoading = true;
+      const randTodos = await getRandomTodos(this.numRandomItemsToAdd);
+      this.items = [...this.items, ...randTodos];
+      this.pageIsLoading = false;
+    },
     handleAddNewItem(value) {
-      this.pushNewTodo(value);
+      this.items.push(getNewTodo(value));
     },
     handleRemoveItem(id) {
       this.removeTodoById(id);
@@ -54,17 +68,6 @@ export default {
         isComplete: !this.items[index].isComplete,
       });
     },
-    toggleIsEditingTodoByIndex(index) {
-      this.items.splice(index, 1, {
-        ...this.items[index],
-        isEditing: !this.items[index].isEditing,
-      });
-    },
-    pushNewTodo(value) {
-      const id = Date.now();
-      const isComplete = false;
-      this.items.push({ id, value, isComplete });
-    },
     removeTodoById(id) {
       const index = this.getIndexByTodoId(id);
       this.items.splice(index, 1);
@@ -75,13 +78,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.home-page_wrapper {
-  max-width: 50rem;
-  margin: 2rem auto 2rem auto;
-}
-.home-page_todo-item {
-  margin: 1rem 0rem 1rem 0rem;
-}
-</style>

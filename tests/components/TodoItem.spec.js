@@ -1,11 +1,12 @@
 import { render } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event'
+import { v4 } from 'uuid';
 
 import TodoItem from '../../src/components/TodoItem.vue';
 
 describe('<TodoItem />', () => {
   describe('when item is complete', () => {
-    const id = Date.now();
+    const id = v4();
     const value = "Test todo item"
     const isComplete = true;
     const propsData = { id, value, isComplete }
@@ -72,7 +73,7 @@ describe('<TodoItem />', () => {
   })
 
   describe('when item is not complete', () => {
-    const id = Date.now();
+    const id = v4();
     const value = "Test todo item"
     const isComplete = false;
     const propsData = { id, value, isComplete }

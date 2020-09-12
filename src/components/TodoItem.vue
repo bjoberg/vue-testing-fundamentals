@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item_wrapper">
+  <div data-testid="todo-item" class="todo-item_wrapper">
     <input
       class="todo-item_input"
       type="checkbox"
@@ -7,16 +7,18 @@
       @change="handleOnToggleComplete"
     />
     <p class="todo-item_content" :class="{'todo-item_content--complete': isComplete}">{{value}}</p>
-    <button class="todo-item_btn--remove error_btn" @click="handleOnClickRemove">Remove</button>
+    <Button class="todo-item_btn--remove" variant="error" @on-click="handleOnClickRemove">Remove</Button>
   </div>
 </template>
 
 <script>
+import Button from "./Button.vue";
 export default {
   name: "TodoItem",
+  components: { Button },
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true,
     },
     value: {
@@ -38,27 +40,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.todo-item_wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.todo-item_content {
-  flex-grow: 1;
-  margin: 0rem 0.5rem 0rem 0.5rem;
-}
-.todo-item_content--complete {
-  text-decoration: line-through;
-}
-.todo-item_input {
-  margin: 0rem 0.5rem 0rem 0.5rem;
-}
-.todo-item_btn--edit {
-  margin: 0rem 0.5rem 0rem 0.5rem;
-}
-.todo-item_btn--remove {
-  margin: 0rem 0rem 0rem 0.5rem;
-}
-</style>
