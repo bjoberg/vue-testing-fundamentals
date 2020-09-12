@@ -46,12 +46,18 @@ describe('getNewTodo', () => {
 })
 
 describe('getRandomTodos', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  })
   describe('when numTodos is not provided', () => {
     let actualTodoList;
     const defaultNumTodos = 5;
 
     beforeEach(async () => {
-      actualTodoList = await getRandomTodos()
+      getRandomTodos().then((data) => {
+        actualTodoList = data
+      })
+      jest.runAllTimers()
     })
 
     test(`should return ${defaultNumTodos} todos`, () => {
@@ -72,7 +78,10 @@ describe('getRandomTodos', () => {
     const numTodos = 3;
 
     beforeEach(async () => {
-      actualTodoList = await getRandomTodos(numTodos)
+      getRandomTodos(numTodos).then((data) => {
+        actualTodoList = data
+      })
+      jest.runAllTimers()
     })
 
     test(`should return ${numTodos} todos`, () => {
