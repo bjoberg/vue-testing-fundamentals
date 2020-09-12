@@ -181,5 +181,30 @@ describe('<Home />', () => {
         })
       })
     })
+
+    describe('when todo item "completed" checkbox is clicked', () => {
+      let todoItemCompletedCheckboxes;
+      const indexToComplete = 1;
+
+      beforeEach(async () => {
+        todoItemCompletedCheckboxes = utils.queryAllByRole('checkbox')
+        await userEvent.click(todoItemCompletedCheckboxes[indexToComplete])
+      })
+
+      test('should render todo item as completed', () => {
+        expect(todoItemCompletedCheckboxes[indexToComplete]).toBeChecked();
+      })
+
+      describe('when todo item "completed" checkbox is clicked again', () => {
+        beforeEach(async () => {
+          todoItemCompletedCheckboxes = utils.queryAllByRole('checkbox')
+          await userEvent.click(todoItemCompletedCheckboxes[indexToComplete])
+        })
+
+        test('should render todo item as not completed', () => {
+          expect(todoItemCompletedCheckboxes[indexToComplete]).not.toBeChecked();
+        })
+      })
+    })
   })
 })

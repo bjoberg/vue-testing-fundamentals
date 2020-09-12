@@ -68,12 +68,6 @@ export default {
         isComplete: !this.items[index].isComplete,
       });
     },
-    toggleIsEditingTodoByIndex(index) {
-      this.items.splice(index, 1, {
-        ...this.items[index],
-        isEditing: !this.items[index].isEditing,
-      });
-    },
     removeTodoById(id) {
       const index = this.getIndexByTodoId(id);
       this.items.splice(index, 1);
