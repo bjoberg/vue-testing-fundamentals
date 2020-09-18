@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event'
 
 import mockTodoItems from '../__data__/TodoItems';
@@ -111,7 +111,7 @@ describe('<Home />', () => {
 
       test(`should render "Add ${numRandomItemsToAdd} Random" button as enabled`, () => {
         const { getByRole } = utils
-        expect(getByRole('button', { name: `Add ${numRandomItemsToAdd} Random` })).not.toBeDisabled();
+        expect(getByRole('button', { name: `Add ${numRandomItemsToAdd} Random` })).toBeEnabled();
       })
 
       test('should not render snackbar', () => {

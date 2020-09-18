@@ -6,10 +6,16 @@
   },
   "extends": [
     "plugin:vue/essential",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:testing-library/vue",
+    "plugin:jest-dom/recommended"
   ],
   "rules": {},
   "parserOptions": {
     "parser": "babel-eslint"
-  }
+  },
+  "plugins": [
+    "testing-library",
+    "jest-dom"
+  ]
 }
