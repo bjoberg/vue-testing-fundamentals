@@ -29,7 +29,7 @@ describe('<AddItemForm />', () => {
     })
 
     test('submit button should not be disabled', () => {
-      expect(utils.getByRole('button', { name: 'Add Item' })).not.toBeDisabled();
+      expect(utils.getByRole('button', { name: 'Add Item' })).toBeEnabled();
     })
 
     describe('when user clicks submit button', () => {

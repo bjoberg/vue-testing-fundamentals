@@ -105,7 +105,7 @@ describe('<Button />', () => {
     })
 
     test('should render button as not disabled', () => {
-      expect(utils.getByRole('button', { name: slots.default })).not.toBeDisabled();
+      expect(utils.getByRole('button', { name: slots.default })).toBeEnabled();
     })
 
     describe('when button is clicked', () => {
