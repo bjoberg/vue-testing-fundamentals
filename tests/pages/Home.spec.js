@@ -36,6 +36,11 @@ describe('<Home />', () => {
     jest.spyOn(TodoService, 'getRandomTodos').mockResolvedValue([])
   })
 
+  afterEach(() => {
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  })
+
   test('should render title', () => {
     const { getByRole } = render(Home);
     expect(getByRole('heading', { name: 'Things I Need To Do' })).toBeInTheDocument()

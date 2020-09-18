@@ -49,6 +49,12 @@ describe('getRandomTodos', () => {
   beforeEach(() => {
     jest.useFakeTimers();
   })
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  })
+
   describe('when numTodos is not provided', () => {
     let actualTodoList;
     const defaultNumTodos = 5;
